@@ -3,6 +3,7 @@
 #include "Timer.hpp"
 
 #include <vector>
+#include <iostream>
 
 BruteForceResult::BruteForceResult() : elapsedSeconds(0.0) {}
 
@@ -33,6 +34,11 @@ BruteForceResult BruteForceSolver::solve(int numberOfCities) const {
     result.bestTour = currentTour;
 
     while (perm1(permutation)) {
+        if (timer.getElapsedSeconds() > 300.0) {
+            std::cout << "Brute force exceeded 5 minutes. Stopping search early." << std::endl;
+            break;
+        }
+
         currentTour.cities.clear();
         currentTour.cities.push_back(0); // Start from the first city
 
