@@ -48,7 +48,7 @@ BruteForceResult BruteForceSolver::solve(int numberOfCities) const {
     }
 
     timer.stop();
-    result.elapsedSeconds = timer.getElapsedTime();
+    result.elapsedSeconds = timer.getElapsedSeconds();
 
     return result;
 }

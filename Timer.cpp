@@ -17,7 +17,7 @@ void Timer::stop() {
     running = false;
 }
 
-double Timer::getElapsedTime() const {
+double Timer::getElapsedSeconds() const {
     long seconds = endTime.tv_sec - startTime.tv_sec;
     long microseconds = endTime.tv_usec - startTime.tv_usec;
 

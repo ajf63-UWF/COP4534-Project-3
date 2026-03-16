@@ -15,7 +15,7 @@ public:
     void start();
     void stop();
 
-    double getElapsedTime() const; 
+    double getElapsedSeconds() const; 
     long getElapsedMicroseconds() const;
 };
 
