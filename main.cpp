@@ -1,9 +1,9 @@
 #include <iostream>
 #include <iomanip>
-#include <limits>
 
 #include "Graph.hpp"
 #include "BruteForceSolver.hpp"
+#include "GeneticSolver.hpp"
 
 int main()
 {
@@ -57,6 +57,11 @@ int main()
     BruteForceSolver bruteForceSolver(graph);
     BruteForceResult bruteForceResult = bruteForceSolver.solve(numberOfCities);
 
+    GeneticSolver geneticSolver(graph);
+    GeneticResult geneticResult = geneticSolver.solve(
+        numberOfCities, populationSize, numberOfGenerations, mutationPercent);
+
+
     std::cout << std::fixed << std::setprecision(2);
     std::cout << "\n===== Results =====\n";
     std::cout << "Number of cities: " << numberOfCities << std::endl;
@@ -64,10 +69,17 @@ int main()
               << bruteForceResult.bestTour.cost << std::endl;
     std::cout << "Time brute force took: "
               << bruteForceResult.elapsedSeconds << " seconds" << std::endl;
+    std::cout << "Cost from GA: "
+              << geneticResult.bestTour.cost << std::endl;
+    std::cout << "Time GA took: "
+              << geneticResult.elapsedSeconds << " seconds" << std::endl;
+    std::cout << "Percent of optimal: "
+              << (geneticResult.bestTour.cost / bruteForceResult.bestTour.cost) * 100.0
+              << "%" << std::endl;
 
-    std::cout << "\nPopulation size entered: " << populationSize << std::endl;
-    std::cout << "Generations entered: " << numberOfGenerations << std::endl;
-    std::cout << "Mutation percentage entered: " << mutationPercent << "%" << std::endl;
-
+    std::cout << "\nParameters used:" << std::endl;
+    std::cout << "Population size: " << populationSize << std::endl;
+    std::cout << "Generations: " << numberOfGenerations << std::endl;
+    std::cout << "Mutation percentage: " << mutationPercent << "%" << std::endl;
     return 0;
 }

@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++11
 TARGET = tsp
 
-OBJS = main.o Graph.o Tour.o Timer.o Permutation.o BruteForceSolver.o
+OBJS = main.o Graph.o Tour.o Timer.o Permutation.o BruteForceSolver.o GeneticSolver.o
 
 all: $(TARGET)
 
@@ -26,6 +26,12 @@ Permutation.o: Permutation.cpp Permutation.hpp
 
 BruteForceSolver.o: BruteForceSolver.cpp BruteForceSolver.hpp Graph.hpp Tour.hpp Permutation.hpp Timer.hpp
 	$(CXX) $(CXXFLAGS) -c BruteForceSolver.cpp
+
+run: tsp
+	./tsp
+
+test: tsp
+	echo -e "10\n50\n100\n20" | ./tsp
 
 clean:
 	rm -f $(OBJS) $(TARGET)

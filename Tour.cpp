@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <limits>
 
-Tour::Tour() : cost(0.0) {}
 Tour::Tour() : cost(std::numeric_limits<double>::max()) {}
 
 double calculateTourCost(const Graph& graph, const std::vector<int>& cities) {
