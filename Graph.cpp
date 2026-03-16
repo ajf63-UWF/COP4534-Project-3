@@ -30,7 +30,7 @@ bool Graph::loadFromFile(const std::string& filename) {
                 adjacencyMatrix[i][j] = 0.0; // Distance to itself is zero
             } else {
                 if (!(inputFile >> adjacencyMatrix[i][j])) {
-                    std::cerr << "Error: File does not contain enough distance values." << filename << std::endl;
+                    std::cerr << "Error: File does not contain enough distance values. " << filename << std::endl;
                     return false;
                 }
             }

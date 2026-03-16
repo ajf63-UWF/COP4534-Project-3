@@ -8,9 +8,7 @@
 
 GeneticResult::GeneticResult() : elapsedSeconds(0.0) {}
 
-GeneticSolver::GeneticSolver(const Graph& graph) : graph(graph) {
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-}
+GeneticSolver::GeneticSolver(const Graph& graph) : graph(graph) {}
 
 Tour GeneticSolver::createRandomTour(int numberOfCities) const {
     Tour tour;
