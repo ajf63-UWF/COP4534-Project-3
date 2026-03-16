@@ -1,0 +1,110 @@
+@startuml
+title Traveling Salesman Project - Class Diagram
+
+skinparam classAttributeIconSize 0
+
+class Graph {
+  - adjacencyMatrix : double[20][20]
+  {static} - MAX_CITIES : int
+  + Graph()
+  + loadFromFile(filename : string) : bool
+  + getDistance(from : int, to : int) : double
+  + getMaxCities() : int
+  + printMatrix() : void
+}
+
+class Tour {
+  + cities : vector<int>
+  + cost : double
+  + Tour()
+}
+
+class Timer {
+  - startTime : timeval
+  - endTime : timeval
+  - running : bool
+  + Timer()
+  + start() : void
+  + stop() : void
+  + getElapsedSeconds() : double
+  + getElapsedMicroseconds() : long
+}
+
+class BruteForceResult {
+  + bestTour : Tour
+  + elapsedSeconds : double
+  + BruteForceResult()
+}
+
+class BruteForceSolver {
+  - graph : Graph
+  + BruteForceSolver(graph : Graph)
+  + solve(numberOfCities : int) : BruteForceResult
+}
+
+class GeneticResult {
+  + bestTour : Tour
+  + elapsedSeconds : double
+  + GeneticResult()
+}
+
+class GeneticSolver {
+  - graph : Graph
+  + GeneticSolver(graph : Graph)
+  - createRandomTour(numberOfCities : int) : Tour
+  - mutateTour(originalTour : Tour, numberOfCities : int) : Tour
+  - evaluatePopulation(population : vector<Tour>) : void
+  - getBestTour(population : vector<Tour>) : Tour
+  + solve(numberOfCities : int, populationSize : int, numberOfGenerations : int, mutationPercent : double) : GeneticResult
+}
+
+class ExperimentResult {
+  + numberOfCities : int
+  + bruteForceCost : double
+  + bruteForceTime : double
+  + gaCost : double
+  + gaTime : double
+  + percentOfOptimal : double
+}
+
+class Permutation <<utility>> {
+  + initializePermutation(values : vector<int>, start : int, end : int) : void
+  + swapPositions(values : vector<int>, index1 : int, index2 : int) : void
+  + perm1(values : vector<int>) : bool
+}
+
+class TourUtils <<utility>> {
+  + calculateTourCost(graph : Graph, cities : vector<int>) : double
+  + printTour(tour : Tour) : void
+}
+
+class Main {
+  + main() : int
+}
+
+BruteForceResult *-- Tour
+GeneticResult *-- Tour
+
+BruteForceSolver --> Graph : uses
+BruteForceSolver --> BruteForceResult : returns
+BruteForceSolver ..> Timer : uses
+BruteForceSolver ..> Permutation : uses
+BruteForceSolver ..> TourUtils : uses
+
+GeneticSolver --> Graph : uses
+GeneticSolver --> GeneticResult : returns
+GeneticSolver ..> Timer : uses
+GeneticSolver ..> TourUtils : uses
+GeneticSolver ..> Tour : manages population
+
+TourUtils ..> Graph : reads distances
+TourUtils ..> Tour : prints/calculates
+
+Main ..> Graph : creates
+Main ..> BruteForceSolver : creates/uses
+Main ..> GeneticSolver : creates/uses
+Main ..> ExperimentResult : stores
+Main ..> BruteForceResult : reads
+Main ..> GeneticResult : reads
+
+@enduml
